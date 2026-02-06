@@ -71,14 +71,13 @@ QUnit.test('uriScheme() - Valid schmes', function (assert) {
 		'http://localhost',
 		'https://example.com/test.html',
 		'ftp://localhost',
-		'sftp://example.com/test/',
+		'ftps://localhost',
 		'mailto:user@localhost',
-		'spotify:xyz',
-		'skype:xyz',
-		'ssh:user@host.com:22',
-		'teamspeak:12345',
 		'tel:12345',
+		'tel:+12345',
 		'//www.example.com/test?id=123',
+		'sms:12345',
+		'sms:+1234',
 		'data:image/png;test',
 		'data:image/gif;test',
 		'data:image/jpg;test',
@@ -106,7 +105,19 @@ QUnit.test('uriScheme() - Invalid schmes', function (assert) {
 	var urls = [
 		// eslint-disable-next-line no-script-url
 		'javascript:alert("XSS");',
+		'sftp://example.com/test/',
+		'skype:xyz',
+		'spotify:xyz',
+		'ssh:user@host.com:22',
+		'teamspeak:12345',
+		// eslint-disable-next-line no-script-url
+		'javascript:alert("XSS");//test.com/hello.html',
+		// eslint-disable-next-line no-script-url
+		'javascript:alert("XSS http://example.com");',
 		'jav	ascript:alert(\'XSS\');',
+		'jav\0ascript:alert(1)',
+		'jav\nascript:alert(1)',
+		'new://https://example.com',
 		'vbscript:msgbox("XSS")',
 		'data:application/javascript;alert("xss")'
 	];
